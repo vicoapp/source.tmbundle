@@ -25,7 +25,7 @@ require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 def out(*args)
   print( *args.map do |arg|
     escaped = e_sn(arg)
-    $selected ? escaped.gsub("}", "\\}") : escaped.sub("\0", "${0}")
+    escaped.sub("\0", "${0}")
   end )
 end
 
@@ -45,8 +45,10 @@ default = nil  # the comment we will insert, if none are removed
 # maintain selection
 if text == ENV["TM_SELECTED_TEXT"]
   $selected = true
-  print "${0:"
-  at_exit { print "}" }
+### doesn't work in vico's visual mode
+#  print "${0:"
+#  at_exit { print "}" }
+  print "$0"
 else
   $selected = false
 end
